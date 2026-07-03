@@ -1,0 +1,54 @@
+HELP.md
+.env
+.env.local
+*.war
+logs/
+.mvn/
+
+### Target build directories
+**/target/
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.coverage
+
+### Maven
+/.idea/
+*.iml
+*.iws
+*.ipr
+*.class
+mvnw.slow
+ecp.xml
+
+### Build directories
+target/
+build/
+
+### IDE directories
+.vscode/
+.idea/
+
+### OS files
+.DS_Store
+Thumbs.db
+
+### Environment files
+.env
+.env.*.local
+__pycache__/
+*.py[cod]
+
+### Temporary files
+*.tmp
+*.temp
+*.log
+*.cache
+
+### Project files
+TODO.md
+TASK*
+*.project
+
+### Compliance reports
+cumplimiento_*.txt
