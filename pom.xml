@@ -48,11 +48,6 @@
       <artifactId>spring-boot-starter-tomcat</artifactId>
       <scope>provided</scope>
     </dependency>
-    <!-- TEMPLATE ENGINE -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-thymeleaf</artifactId>
-    </dependency>
     <!-- POSTGRESQL DRIVER -->
     <dependency>
       <groupId>org.postgresql</groupId>

@@ -34,11 +34,16 @@ public class AuthService {
     }
 
     @PostConstruct
-    public void initAdmin() {
+    public void initDemoUsers() {
         if (!userRepository.existsByUsername("admin")) {
             var admin = new User("admin", "admin@sakila.app",
                     passwordEncoder.encode("Admin123!"), "ADMIN");
             userRepository.save(admin);
+        }
+        if (!userRepository.existsByUsername("user")) {
+            var user = new User("user", "user@sakila.app",
+                    passwordEncoder.encode("User123!"), "USER");
+            userRepository.save(user);
         }
     }
 
@@ -51,7 +56,7 @@ public class AuthService {
                 request.username(),
                 request.email(),
                 passwordEncoder.encode(request.password()),
-                "CUSTOMER");
+                "USER");
         user = userRepository.save(user);
 
         String token = jwtTokenProvider.generateToken(user.getUsername(), user.getRole(), user.getId());
