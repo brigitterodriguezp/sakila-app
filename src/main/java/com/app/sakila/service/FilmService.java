@@ -1,5 +1,6 @@
 package com.app.sakila.service;
 
+import com.app.sakila.dto.CategoryDTO;
 import com.app.sakila.dto.FilmDTO;
 import com.app.sakila.entity.Film;
 import com.app.sakila.exception.ResourceNotFoundException;
@@ -21,18 +22,30 @@ public class FilmService {
         this.filmMapper = filmMapper;
     }
 
+    @Transactional(readOnly = true)
     public List<FilmDTO> getAllFilms() {
         return filmRepository.findAll().stream()
                 .map(filmMapper::toDTO)
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public FilmDTO getFilmById(Long id) {
         return filmRepository.findById(id)
                 .map(filmMapper::toDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("Film", id));
     }
 
+    @Transactional(readOnly = true)
+    public List<CategoryDTO> getFilmCategories(Long filmId) {
+        return filmRepository.findById(filmId)
+                .map(film -> film.getCategories().stream()
+                        .map(c -> new CategoryDTO(c.getId(), c.getName()))
+                        .toList())
+                .orElseThrow(() -> new ResourceNotFoundException("Film", filmId));
+    }
+
+    @Transactional(readOnly = true)
     public List<FilmDTO> searchFilms(String title) {
         return filmRepository.findByTitleContainingIgnoreCase(title).stream()
                 .map(filmMapper::toDTO)

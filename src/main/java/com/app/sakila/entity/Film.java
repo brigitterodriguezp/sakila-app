@@ -3,6 +3,7 @@ package com.app.sakila.entity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "film")
@@ -54,6 +55,12 @@ public class Film {
     @Column(name = "special_features", columnDefinition = "text[]")
     private String specialFeatures;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "film_category",
+        joinColumns = @JoinColumn(name = "film_id"),
+        inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<Category> categories;
+
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdate;
 
@@ -88,6 +95,8 @@ public class Film {
     public void setRating(String rating) { this.rating = rating; }
     public String getSpecialFeatures() { return specialFeatures; }
     public void setSpecialFeatures(String specialFeatures) { this.specialFeatures = specialFeatures; }
+    public List<Category> getCategories() { return categories; }
+    public void setCategories(List<Category> categories) { this.categories = categories; }
     public LocalDateTime getLastUpdate() { return lastUpdate; }
     public void setLastUpdate(LocalDateTime lastUpdate) { this.lastUpdate = lastUpdate; }
 }

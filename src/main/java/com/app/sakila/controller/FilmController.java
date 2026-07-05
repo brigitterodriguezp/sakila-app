@@ -1,5 +1,6 @@
 package com.app.sakila.controller;
 
+import com.app.sakila.dto.CategoryDTO;
 import com.app.sakila.dto.FilmDTO;
 import com.app.sakila.service.FilmService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,6 +28,14 @@ public class FilmController {
                              "idioma original y categorías asociadas.")
     public ResponseEntity<List<FilmDTO>> getAllFilms() {
         return ResponseEntity.ok(filmService.getAllFilms());
+    }
+
+    @GetMapping("/{id}/categories")
+    @Operation(summary = "Categorías de una película",
+               description = "Obtiene el listado de categorías asociadas a una película específica. " +
+                             "Cada película puede pertenecer a una o varias categorías como Action, Comedy, Drama, etc.")
+    public ResponseEntity<List<CategoryDTO>> getFilmCategories(@PathVariable Long id) {
+        return ResponseEntity.ok(filmService.getFilmCategories(id));
     }
 
     @GetMapping("/{id}")
