@@ -1,0 +1,29 @@
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--md-sys-shape-corner-small);
+  font-size: 0.875rem;
+  margin-bottom: 16px;
+}
+
+.alert-info {
+  background: #E3F2FD;
+  color: #0D47A1;
+}
+
+.alert-success {
+  background: #E8F5E9;
+  color: #1B5E20;
+}
+
+.alert-warning {
+  background: #FFF3E0;
+  color: #E65100;
+}
+
+.alert-error {
+  background: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+}
