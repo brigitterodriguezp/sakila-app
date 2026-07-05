@@ -27,6 +27,94 @@ Este proyecto no incluye una GUI web funcional. La validacion y uso principal se
 | Maven 3.9.9                    | Gestión de dependencias, build y ejecución          |
 | WAR                            | Empaquetado de la aplicación                        |
 
+## Diagrama ER
+
+Diagrama entidad-relación del modelo Sakila con las tablas que componen la base de datos:
+
+```mermaid
+erDiagram
+    country ||--o{ city : ""
+    city ||--o{ address : ""
+    address ||--o{ customer : ""
+    address ||--o{ staff : ""
+    address ||--o{ store : ""
+
+    language ||--o{ film : ""
+
+    film ||--o{ film_actor : ""
+    actor ||--o{ film_actor : ""
+
+    film ||--o{ film_category : ""
+    category ||--o{ film_category : ""
+
+    film ||--o{ inventory : ""
+
+    store ||--o{ inventory : ""
+    store ||--o{ customer : ""
+    store ||--o{ staff : ""
+    store ||--o{ store : "managed by"
+
+    inventory ||--o{ rental : ""
+    customer ||--o{ rental : ""
+    staff ||--o{ rental : ""
+
+    rental ||--o{ payment : ""
+    customer ||--o{ payment : ""
+    staff ||--o{ payment : ""
+
+    staff ||--o{ store : "manages"
+
+    country {
+        int country_id PK
+    }
+    city {
+        int city_id PK
+    }
+    address {
+        int address_id PK
+    }
+    language {
+        int language_id PK
+    }
+    actor {
+        int actor_id PK
+    }
+    category {
+        int category_id PK
+    }
+    film {
+        int film_id PK
+    }
+    film_actor {
+        int actor_id PK, FK
+        int film_id PK, FK
+    }
+    film_category {
+        int film_id PK, FK
+        int category_id PK, FK
+    }
+    inventory {
+        int inventory_id PK
+    }
+    customer {
+        int customer_id PK
+    }
+    staff {
+        int staff_id PK
+    }
+    store {
+        int store_id PK
+    }
+    rental {
+        int rental_id PK
+    }
+    payment {
+        int payment_id PK
+    }
+```
+
+Tabla adicional `users` (autenticación JWT, no pertenece al modelo Sakila original).
+
 ## Requisitos
 
 - Java 17.
