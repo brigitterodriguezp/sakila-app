@@ -33,12 +33,14 @@ public class RentalService {
         this.rentalMapper = rentalMapper;
     }
 
+    @Transactional(readOnly = true)
     public List<RentalDTO> getMyActiveRentals(Long customerId) {
         return rentalRepository.findByCustomerIdAndReturnDateIsNull(customerId).stream()
                 .map(rentalMapper::toDTO)
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public List<RentalDTO> getMyRentalHistory(Long customerId) {
         return rentalRepository.findByCustomerIdOrderByRentalDateDesc(customerId).stream()
                 .map(rentalMapper::toDTO)
