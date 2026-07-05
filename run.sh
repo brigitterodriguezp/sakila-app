@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-# Sakila Rental - Run Script (Linux/macOS)
+# Sakila Rental - DEBIAN
 # ============================================================
 clear
 set -euo pipefail

@@ -6,21 +6,26 @@ Este proyecto no incluye una GUI web funcional. La validacion y uso principal se
 
 ## Tecnologias
 
-| Tecnologia | Uso |
-| --- | --- |
-| Java 17 | Runtime del proyecto |
-| Spring Boot 4.1.0 | Aplicacion REST |
-| Spring Web | Controladores HTTP |
-| Spring Data JPA | Persistencia |
-| Spring Security | Autenticacion y autorizacion |
-| PostgreSQL | Base de datos |
-| Sakila PostgreSQL | Modelo de peliculas, inventario y alquileres |
-| HikariCP | Pool de conexiones |
-| BCrypt | Hash seguro de contrasenas |
-| JWT | Tokens de autenticacion |
-| Swagger/OpenAPI | Documentacion y pruebas de API |
-| Maven | Build y ejecucion |
-| WAR | Empaquetado |
+## Tecnologías
+
+| Tecnología                     | Uso                                                 |
+| ------------------------------ | --------------------------------------------------- |
+| Java 17.0.12 LTS               | Runtime del proyecto                                |
+| Spring Boot 4.1.0              | Desarrollo de la aplicación REST                    |
+| Spring Web 4.1.0               | Creación de controladores y endpoints HTTP          |
+| Spring Data JPA 4.1.0          | Persistencia y acceso a PostgreSQL                  |
+| Spring Security 4.1.0          | Autenticación y autorización por roles              |
+| PostgreSQL 17.10               | Motor de base de datos                              |
+| PostgreSQL JDBC Driver 42.7.11 | Conexión entre Spring Boot y PostgreSQL             |
+| Sakila for PostgreSQL          | Modelo de datos del sistema de alquiler             |
+| HikariCP 7.0.2                 | Pool de conexiones a la base de datos               |
+| BCrypt                         | Hash seguro de contraseñas mediante Spring Security |
+| JWT / JJWT 0.12.6              | Generación y validación de tokens de autenticación  |
+| Springdoc OpenAPI 2.8.5        | Documentación OpenAPI de la API REST                |
+| Swagger Core 2.2.28            | Modelado y anotaciones de documentación Swagger     |
+| Swagger UI 5.18.3              | Interfaz web para probar los endpoints              |
+| Maven 3.9.9                    | Gestión de dependencias, build y ejecución          |
+| WAR                            | Empaquetado de la aplicación                        |
 
 ## Requisitos
 
@@ -110,10 +115,10 @@ http://localhost:8080/v3/api-docs
 
 ## Usuarios De Prueba
 
-| Rol | Usuario | Password | Email | Uso |
-| --- | --- | --- | --- | --- |
+| Rol   | Usuario | Password    | Email              | Uso                                                |
+| ----- | ------- | ----------- | ------------------ | -------------------------------------------------- |
 | ADMIN | `admin` | `Admin123!` | `admin@sakila.app` | Endpoints administrativos y endpoints autenticados |
-| USER | `user` | `User123!` | `user@sakila.app` | Endpoints de consulta, alquiler e historial |
+| USER  | `user`  | `User123!`  | `user@sakila.app`  | Endpoints de consulta, alquiler e historial        |
 
 Notas:
 
@@ -178,12 +183,12 @@ En Swagger:
 
 ## Endpoints Publicos
 
-| Metodo | Endpoint | Autenticacion | Body |
-| --- | --- | --- | --- |
-| POST | `/api/auth/login` | No | `{"username":"admin","password":"Admin123!"}` |
-| POST | `/api/auth/register` | No | `{"username":"nuevo","email":"nuevo@sakila.app","password":"User123!"}` |
-| GET | `/swagger-ui/index.html` | No | Ninguno |
-| GET | `/v3/api-docs` | No | Ninguno |
+| Metodo | Endpoint                 | Autenticacion | Body                                                                    |
+| ------ | ------------------------ | ------------- | ----------------------------------------------------------------------- |
+| POST   | `/api/auth/login`        | No            | `{"username":"admin","password":"Admin123!"}`                           |
+| POST   | `/api/auth/register`     | No            | `{"username":"nuevo","email":"nuevo@sakila.app","password":"User123!"}` |
+| GET    | `/swagger-ui/index.html` | No            | Ninguno                                                                 |
+| GET    | `/v3/api-docs`           | No            | Ninguno                                                                 |
 
 ## Endpoints Para ADMIN O USER
 
@@ -193,16 +198,16 @@ Requieren header:
 Authorization: Bearer <TOKEN>
 ```
 
-| Metodo | Endpoint | Rol | Descripcion |
-| --- | --- | --- | --- |
-| GET | `/api/categories` | ADMIN o USER | Listar categorias |
-| GET | `/api/films` | ADMIN o USER | Listar peliculas |
-| GET | `/api/films/{id}` | ADMIN o USER | Consultar pelicula por id |
-| GET | `/api/films/search?title=ACADEMY` | ADMIN o USER | Buscar peliculas por titulo |
-| GET | `/api/rentals/my-active-rentals` | ADMIN o USER | Alquileres activos del usuario autenticado |
-| GET | `/api/rentals/my-history` | ADMIN o USER | Historial del usuario autenticado |
-| POST | `/api/rentals/rent` | ADMIN o USER | Alquilar pelicula |
-| PUT | `/api/rentals/return` | ADMIN o USER | Devolver alquiler |
+| Metodo | Endpoint                          | Rol          | Descripcion                                |
+| ------ | --------------------------------- | ------------ | ------------------------------------------ |
+| GET    | `/api/categories`                 | ADMIN o USER | Listar categorias                          |
+| GET    | `/api/films`                      | ADMIN o USER | Listar peliculas                           |
+| GET    | `/api/films/{id}`                 | ADMIN o USER | Consultar pelicula por id                  |
+| GET    | `/api/films/search?title=ACADEMY` | ADMIN o USER | Buscar peliculas por titulo                |
+| GET    | `/api/rentals/my-active-rentals`  | ADMIN o USER | Alquileres activos del usuario autenticado |
+| GET    | `/api/rentals/my-history`         | ADMIN o USER | Historial del usuario autenticado          |
+| POST   | `/api/rentals/rent`               | ADMIN o USER | Alquilar pelicula                          |
+| PUT    | `/api/rentals/return`             | ADMIN o USER | Devolver alquiler                          |
 
 Ejemplo de alquiler:
 
@@ -226,17 +231,17 @@ curl -X PUT http://localhost:8080/api/rentals/return \
 
 Requieren token de `admin`.
 
-| Metodo | Endpoint | Body | Descripcion |
-| --- | --- | --- | --- |
-| POST | `/api/admin/categories` | `{"name":"Anime"}` | Crear categoria |
-| PUT | `/api/admin/categories/{id}` | `{"id":17,"name":"Anime Updated"}` | Actualizar categoria |
-| DELETE | `/api/admin/categories/{id}` | Ninguno | Eliminar categoria si es posible |
-| POST | `/api/admin/films` | Ver ejemplo abajo | Crear pelicula |
-| PUT | `/api/admin/films/{id}` | Ver ejemplo abajo | Actualizar pelicula |
-| DELETE | `/api/admin/films/{id}` | Ninguno | Eliminar pelicula si es posible |
-| GET | `/api/admin/inventory?filmId=1` | Ninguno | Consultar inventario por pelicula |
-| POST | `/api/admin/inventory` | `{"filmId":1,"storeId":1}` | Crear item de inventario |
-| DELETE | `/api/admin/inventory/{id}` | Ninguno | Eliminar item de inventario |
+| Metodo | Endpoint                        | Body                               | Descripcion                       |
+| ------ | ------------------------------- | ---------------------------------- | --------------------------------- |
+| POST   | `/api/admin/categories`         | `{"name":"Anime"}`                 | Crear categoria                   |
+| PUT    | `/api/admin/categories/{id}`    | `{"id":17,"name":"Anime Updated"}` | Actualizar categoria              |
+| DELETE | `/api/admin/categories/{id}`    | Ninguno                            | Eliminar categoria si es posible  |
+| POST   | `/api/admin/films`              | Ver ejemplo abajo                  | Crear pelicula                    |
+| PUT    | `/api/admin/films/{id}`         | Ver ejemplo abajo                  | Actualizar pelicula               |
+| DELETE | `/api/admin/films/{id}`         | Ninguno                            | Eliminar pelicula si es posible   |
+| GET    | `/api/admin/inventory?filmId=1` | Ninguno                            | Consultar inventario por pelicula |
+| POST   | `/api/admin/inventory`          | `{"filmId":1,"storeId":1}`         | Crear item de inventario          |
+| DELETE | `/api/admin/inventory/{id}`     | Ninguno                            | Eliminar item de inventario       |
 
 Ejemplo para crear pelicula:
 
@@ -288,4 +293,3 @@ curl -X POST http://localhost:8080/api/admin/categories \
 - HikariCP configurado en `application.properties`.
 - `spring.jpa.hibernate.ddl-auto=none`; el esquema se crea con scripts SQL.
 - Credenciales reales fuera del repositorio mediante `.env`.
-

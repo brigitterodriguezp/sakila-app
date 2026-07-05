@@ -1,5 +1,5 @@
 <# ============================================================
-   Sakila Rental - Run Script (Windows PowerShell)
+   Sakila Rental - WINDOWS PWSHELL
    ============================================================ #>
 Write-Host "[INFO] Starting Sakila Rental..." -ForegroundColor Green
 
