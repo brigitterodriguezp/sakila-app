@@ -1,35 +1,33 @@
 # Sakila Rental API
 
-Backend REST para un sistema de alquiler de peliculas usando Spring Boot, PostgreSQL, Sakila, Spring Security, JWT, BCrypt, Spring Data JPA, HikariCP y Swagger/OpenAPI.
+Backend REST for a movie rental system using Spring Boot, PostgreSQL, Sakila, Spring Security, JWT, BCrypt, Spring Data JPA, HikariCP and Swagger/OpenAPI.
 
-Este proyecto no incluye una GUI web funcional. La validacion y uso principal se hacen mediante Swagger UI o clientes HTTP como curl/Postman.
+This project does not include a functional web GUI. Validation and main usage are done via Swagger UI or HTTP clients like curl/Postman.
 
-## Tecnologias
+## Technologies
 
-## Tecnologías
+| Technology                    | Usage                                              |
+| ----------------------------- | -------------------------------------------------- |
+| Java 17.0.12 LTS              | Project runtime                                    |
+| Spring Boot 4.1.0             | REST application development                       |
+| Spring Web 4.1.0              | Controllers and HTTP endpoints                     |
+| Spring Data JPA 4.1.0         | Persistence and PostgreSQL access                  |
+| Spring Security 4.1.0         | Authentication and role-based authorization        |
+| PostgreSQL 17.10              | Database engine                                    |
+| PostgreSQL JDBC Driver 42.7.11| Connection between Spring Boot and PostgreSQL      |
+| Sakila for PostgreSQL         | Rental system data model                           |
+| HikariCP 7.0.2                | Database connection pool                           |
+| BCrypt                        | Secure password hashing via Spring Security        |
+| JWT / JJWT 0.12.6             | Authentication token generation and validation     |
+| Springdoc OpenAPI 2.8.5       | OpenAPI documentation for the REST API             |
+| Swagger Core 2.2.28           | Swagger documentation modeling and annotations     |
+| Swagger UI 5.18.3             | Web interface to test endpoints                    |
+| Maven 3.9.9                   | Dependency management, build and execution         |
+| WAR                            | Application packaging                              |
 
-| Tecnología                     | Uso                                                 |
-| ------------------------------ | --------------------------------------------------- |
-| Java 17.0.12 LTS               | Runtime del proyecto                                |
-| Spring Boot 4.1.0              | Desarrollo de la aplicación REST                    |
-| Spring Web 4.1.0               | Creación de controladores y endpoints HTTP          |
-| Spring Data JPA 4.1.0          | Persistencia y acceso a PostgreSQL                  |
-| Spring Security 4.1.0          | Autenticación y autorización por roles              |
-| PostgreSQL 17.10               | Motor de base de datos                              |
-| PostgreSQL JDBC Driver 42.7.11 | Conexión entre Spring Boot y PostgreSQL             |
-| Sakila for PostgreSQL          | Modelo de datos del sistema de alquiler             |
-| HikariCP 7.0.2                 | Pool de conexiones a la base de datos               |
-| BCrypt                         | Hash seguro de contraseñas mediante Spring Security |
-| JWT / JJWT 0.12.6              | Generación y validación de tokens de autenticación  |
-| Springdoc OpenAPI 2.8.5        | Documentación OpenAPI de la API REST                |
-| Swagger Core 2.2.28            | Modelado y anotaciones de documentación Swagger     |
-| Swagger UI 5.18.3              | Interfaz web para probar los endpoints              |
-| Maven 3.9.9                    | Gestión de dependencias, build y ejecución          |
-| WAR                            | Empaquetado de la aplicación                        |
+## ER Diagram
 
-## Diagrama ER
-
-Tablas del modelo Sakila utilizadas por la API:
+Sakila model tables used by the API:
 
 ```mermaid
 erDiagram
@@ -58,24 +56,24 @@ erDiagram
     rental { int rental_id PK }
 ```
 
-Tabla adicional `users` (autenticación JWT, no pertenece al modelo Sakila original).
+Additional `users` table (JWT authentication, not part of the original Sakila model).
 
-## Requisitos
+## Requirements
 
 - Java 17.
-- PostgreSQL activo.
-- Base de datos `sakila`.
-- Maven Wrapper incluido en el proyecto.
+- Active PostgreSQL.
+- `sakila` database.
+- Maven Wrapper included in the project.
 
-## Configuracion
+## Configuration
 
-Crear `.env` desde la plantilla:
+Create `.env` from the template:
 
 ```bash
 cp .env.example .env
 ```
 
-Valores esperados para desarrollo local:
+Expected values for local development:
 
 ```env
 DB_HOST=localhost
@@ -90,17 +88,17 @@ JWT_EXPIRATION=432000000
 SERVER_PORT=8080
 ```
 
-`run.sh` y `run.ps1` cargan `.env` antes de iniciar la aplicacion.
+`run.sh` and `run.ps1` load `.env` before starting the application.
 
-## Base De Datos
+## Database
 
-Ejecutar setup completo:
+Run full setup:
 
 ```bash
 sudo ./db/setup.sh
 ```
 
-O ejecutar manualmente:
+Or execute manually:
 
 ```bash
 sudo -u postgres createdb sakila
@@ -110,9 +108,9 @@ sudo -u postgres psql -d sakila -f db/seed.sql
 sudo -u postgres psql -d sakila -f db/index.sql
 ```
 
-La aplicacion crea automaticamente usuarios de prueba al iniciar si no existen.
+The application automatically creates test users on startup if they do not exist.
 
-## Ejecutar
+## Run
 
 Linux/macOS:
 
@@ -134,7 +132,7 @@ Build WAR:
 
 ## Swagger
 
-Abrir:
+Open:
 
 ```text
 http://localhost:8080/swagger-ui/index.html
@@ -146,30 +144,30 @@ OpenAPI JSON:
 http://localhost:8080/v3/api-docs
 ```
 
-## Usuarios De Prueba
+## Test Users
 
-| Rol   | Usuario | Password    | Email              | Uso                                                |
-| ----- | ------- | ----------- | ------------------ | -------------------------------------------------- |
-| ADMIN | `admin` | `Admin123!` | `admin@sakila.app` | Endpoints administrativos y endpoints autenticados |
-| USER  | `user`  | `User123!`  | `user@sakila.app`  | Endpoints de consulta, alquiler e historial        |
+| Role  | Username | Password    | Email              | Usage                                                |
+| ----- | -------- | ----------- | ------------------ | ---------------------------------------------------- |
+| ADMIN | `admin`  | `Admin123!` | `admin@sakila.app` | Administrative endpoints and authenticated endpoints |
+| USER  | `user`   | `User123!`  | `user@sakila.app`  | Query, rental and history endpoints                  |
 
-Notas:
+Notes:
 
-- Las contrasenas se guardan con BCrypt, no en texto plano.
-- El usuario `user` queda con id `2`, alineado con `customer_id=2` del seed de Sakila para probar alquileres.
-- Los registros creados desde `/api/auth/register` reciben rol `USER`.
+- Passwords are stored with BCrypt, not in plain text.
+- The `user` account has id `2`, aligned with `customer_id=2` from the Sakila seed for testing rentals.
+- Users created via `/api/auth/register` receive role `USER`.
 
-## Flujo De Uso De La API
+## API Usage Flow
 
-### 1. Verificar Que La App Responde
+### 1. Verify The App Responds
 
-Swagger debe responder `200`:
+Swagger should return `200`:
 
 ```bash
 curl -i http://localhost:8080/swagger-ui/index.html
 ```
 
-### 2. Iniciar Sesion
+### 2. Log In
 
 ADMIN:
 
@@ -187,7 +185,7 @@ curl -X POST http://localhost:8080/api/auth/login \
   -d '{"username":"user","password":"User123!"}'
 ```
 
-La respuesta devuelve:
+The response returns:
 
 ```json
 {
@@ -197,52 +195,52 @@ La respuesta devuelve:
 }
 ```
 
-### 3. Usar El Token
+### 3. Use The Token
 
-Copiar el token y enviarlo en cada endpoint protegido:
+Copy the token and send it on every protected endpoint:
 
 ```bash
 curl http://localhost:8080/api/categories \
   -H "Authorization: Bearer <TOKEN>"
 ```
 
-En Swagger:
+In Swagger:
 
-1. Ejecutar `/api/auth/login`.
-2. Copiar `token`.
-3. Presionar `Authorize`.
-4. Escribir `Bearer <TOKEN>`.
-5. Probar endpoints protegidos.
+1. Execute `/api/auth/login`.
+2. Copy `token`.
+3. Press `Authorize`.
+4. Enter `Bearer <TOKEN>`.
+5. Test protected endpoints.
 
-## Endpoints Publicos
+## Public Endpoints
 
-| Metodo | Endpoint                 | Autenticacion | Body                                                                    |
-| ------ | ------------------------ | ------------- | ----------------------------------------------------------------------- |
-| POST   | `/api/auth/login`        | No            | `{"username":"admin","password":"Admin123!"}`                           |
-| POST   | `/api/auth/register`     | No            | `{"username":"nuevo","email":"nuevo@sakila.app","password":"User123!"}` |
-| GET    | `/swagger-ui/index.html` | No            | Ninguno                                                                 |
-| GET    | `/v3/api-docs`           | No            | Ninguno                                                                 |
+| Method | Endpoint                 | Auth | Body                                                                     |
+| ------ | ------------------------ | ---- | ----------------------------------------------------------------------- |
+| POST   | `/api/auth/login`        | No   | `{"username":"admin","password":"Admin123!"}`                           |
+| POST   | `/api/auth/register`     | No   | `{"username":"new","email":"new@sakila.app","password":"User123!"}`     |
+| GET    | `/swagger-ui/index.html` | No   | None                                                                    |
+| GET    | `/v3/api-docs`           | No   | None                                                                    |
 
-## Endpoints Para ADMIN O USER
+## Endpoints For ADMIN or USER
 
-Requieren header:
+Require header:
 
 ```text
 Authorization: Bearer <TOKEN>
 ```
 
-| Metodo | Endpoint                          | Rol          | Descripcion                                |
-| ------ | --------------------------------- | ------------ | ------------------------------------------ |
-| GET    | `/api/categories`                 | ADMIN o USER | Listar categorias                          |
-| GET    | `/api/films`                      | ADMIN o USER | Listar peliculas                           |
-| GET    | `/api/films/{id}`                 | ADMIN o USER | Consultar pelicula por id                  |
-| GET    | `/api/films/search?title=ACADEMY` | ADMIN o USER | Buscar peliculas por titulo                |
-| GET    | `/api/rentals/my-active-rentals`  | ADMIN o USER | Alquileres activos del usuario autenticado |
-| GET    | `/api/rentals/my-history`         | ADMIN o USER | Historial del usuario autenticado          |
-| POST   | `/api/rentals/rent`               | ADMIN o USER | Alquilar pelicula                          |
-| PUT    | `/api/rentals/return`             | ADMIN o USER | Devolver alquiler                          |
+| Method | Endpoint                          | Role          | Description                                |
+| ------ | --------------------------------- | ------------- | ------------------------------------------ |
+| GET    | `/api/categories`                 | ADMIN or USER | List categories                            |
+| GET    | `/api/films`                      | ADMIN or USER | List films                                 |
+| GET    | `/api/films/{id}`                 | ADMIN or USER | Get film by id                             |
+| GET    | `/api/films/search?title=ACADEMY` | ADMIN or USER | Search films by title                      |
+| GET    | `/api/rentals/my-active-rentals`  | ADMIN or USER | Active rentals for the authenticated user  |
+| GET    | `/api/rentals/my-history`         | ADMIN or USER | Rental history for the authenticated user  |
+| POST   | `/api/rentals/rent`               | ADMIN or USER | Rent a film                                |
+| PUT    | `/api/rentals/return`             | ADMIN or USER | Return a rental                            |
 
-Ejemplo de alquiler:
+Rental example:
 
 ```bash
 curl -X POST http://localhost:8080/api/rentals/rent \
@@ -251,7 +249,7 @@ curl -X POST http://localhost:8080/api/rentals/rent \
   -d '{"filmId":1,"staffId":1}'
 ```
 
-Ejemplo de devolucion:
+Return example:
 
 ```bash
 curl -X PUT http://localhost:8080/api/rentals/return \
@@ -260,23 +258,23 @@ curl -X PUT http://localhost:8080/api/rentals/return \
   -d '{"rentalId":3}'
 ```
 
-## Endpoints Solo ADMIN
+## ADMIN-Only Endpoints
 
-Requieren token de `admin`.
+Require the `admin` token.
 
-| Metodo | Endpoint                        | Body                               | Descripcion                       |
-| ------ | ------------------------------- | ---------------------------------- | --------------------------------- |
-| POST   | `/api/admin/categories`         | `{"name":"Anime"}`                 | Crear categoria                   |
-| PUT    | `/api/admin/categories/{id}`    | `{"id":17,"name":"Anime Updated"}` | Actualizar categoria              |
-| DELETE | `/api/admin/categories/{id}`    | Ninguno                            | Eliminar categoria si es posible  |
-| POST   | `/api/admin/films`              | Ver ejemplo abajo                  | Crear pelicula                    |
-| PUT    | `/api/admin/films/{id}`         | Ver ejemplo abajo                  | Actualizar pelicula               |
-| DELETE | `/api/admin/films/{id}`         | Ninguno                            | Eliminar pelicula si es posible   |
-| GET    | `/api/admin/inventory?filmId=1` | Ninguno                            | Consultar inventario por pelicula |
-| POST   | `/api/admin/inventory`          | `{"filmId":1,"storeId":1}`         | Crear item de inventario          |
-| DELETE | `/api/admin/inventory/{id}`     | Ninguno                            | Eliminar item de inventario       |
+| Method | Endpoint                        | Body                               | Description                        |
+| ------ | ------------------------------- | ---------------------------------- | ---------------------------------- |
+| POST   | `/api/admin/categories`         | `{"name":"Anime"}`                 | Create category                    |
+| PUT    | `/api/admin/categories/{id}`    | `{"id":17,"name":"Anime Updated"}` | Update category                    |
+| DELETE | `/api/admin/categories/{id}`    | None                               | Delete category if possible        |
+| POST   | `/api/admin/films`              | See example below                  | Create film                        |
+| PUT    | `/api/admin/films/{id}`         | See example below                  | Update film                        |
+| DELETE | `/api/admin/films/{id}`         | None                               | Delete film if possible            |
+| GET    | `/api/admin/inventory?filmId=1` | None                               | Query inventory by film            |
+| POST   | `/api/admin/inventory`          | `{"filmId":1,"storeId":1}`         | Create inventory item              |
+| DELETE | `/api/admin/inventory/{id}`     | None                               | Delete inventory item              |
 
-Ejemplo para crear pelicula:
+Example for creating a film:
 
 ```json
 {
@@ -290,9 +288,9 @@ Ejemplo para crear pelicula:
 }
 ```
 
-## Pruebas Rapidas Con Curl
+## Quick Curl Tests
 
-Login y categorias:
+Login and categories:
 
 ```bash
 TOKEN=$(curl -s -X POST http://localhost:8080/api/auth/login \
@@ -304,7 +302,7 @@ curl http://localhost:8080/api/categories \
   -H "Authorization: Bearer $TOKEN"
 ```
 
-Login admin y crear categoria:
+Admin login and create category:
 
 ```bash
 ADMIN_TOKEN=$(curl -s -X POST http://localhost:8080/api/auth/login \
@@ -318,11 +316,11 @@ curl -X POST http://localhost:8080/api/admin/categories \
   -d '{"name":"Anime"}'
 ```
 
-## Seguridad Y Conexion
+## Security And Connection
 
-- JWT HMAC-SHA256 con secreto Base64 de al menos 256 bits.
+- JWT HMAC-SHA256 with at least 256-bit Base64 secret.
 - BCrypt strength 10.
-- Autorizacion por roles con `ROLE_ADMIN` y `ROLE_USER`.
-- HikariCP configurado en `application.properties`.
-- `spring.jpa.hibernate.ddl-auto=none`; el esquema se crea con scripts SQL.
-- Credenciales reales fuera del repositorio mediante `.env`.
+- Role-based authorization with `ROLE_ADMIN` and `ROLE_USER`.
+- HikariCP configured in `application.properties`.
+- `spring.jpa.hibernate.ddl-auto=none`; schema is created with SQL scripts.
+- Real credentials kept out of the repository via `.env`.
