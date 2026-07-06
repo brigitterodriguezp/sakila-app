@@ -77,15 +77,15 @@ Expected values for local development:
 
 ```env
 DB_HOST=localhost
-DB_PORT=5432
+DB_PORT=port_here
 DB_NAME=sakila
-DB_USERNAME=brigitte
-DB_PASSWORD=b74g1tt3
+DB_USERNAME=user_here
+DB_PASSWORD=password_here
 
-JWT_SECRET=a2V5c2FraWxhcmVudGFsMjAyNnNlZ3VyaWRhZGp3dGFhMA==
-JWT_EXPIRATION=432000000
+JWT_SECRET=toke_here_secret
+JWT_EXPIRATION=time
 
-SERVER_PORT=8080
+SERVER_PORT=port_here
 ```
 
 `run.sh` and `run.ps1` load `.env` before starting the application.
